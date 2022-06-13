@@ -1,10 +1,4 @@
-const axios = require('axios');
-const { response } = require('express');
-
-const instance = axios.create({
-    baseURL: 'http://127.0.0.1:3000',
-    timeout: 1000,
-  }); 
+  const client = require('../client/client')
 
   const helpers = require('../helpers/helpers')
   const profile =  {
@@ -16,32 +10,16 @@ const instance = axios.create({
 
 test('User create test', async () => {
 
-    const params = {
+    const response = await client.addProfile(profile)
 
-        data: profile,
-
-        url: '/profile',
-
-        method: 'POST',
-    }
-
-    const response = await instance(params)
-
-    expect(response.status).toBe(200)
+    expect(response.status).toBe(201)
 })
 
 
 
 test('User search test', async () => {
 
-    const params = {
-
-        url:`/user/${profile.name}`,
-
-        method: 'GET',
-    }
-    
-    const response = await instance(params)
+    const response = await client.getProfile(profile.name)
 
     expect(response.data).toStrictEqual(profile)
     })
@@ -49,13 +27,7 @@ test('User search test', async () => {
 
     test('User delete status', async () => {
 
-        const params = {
-
-            url:`/delete/${profile.name}`,
-            method: 'DELETE',
-        }
-
-        const response = await instance(params)
+        const response = await client.deleteProfile(profile.name)
 
         expect(response.status).toBe(200)
     })  
@@ -63,29 +35,20 @@ test('User search test', async () => {
     
     test('User presence', async () => {
 
-        const params = {
-
-            url:'/list',
-            method: 'GET',
-        }
-
-        const response = await instance(params)
+        const response = await client.list()
 
         expect(response.data).not.toContainEqual(profile)
     })
 
-    test('Request from a remote user', async () => {
+    test('Delete removed user', async () => {
 
-        const params = {
+        const response = await client.deleteProfile(profile.name)
 
-            url:`/delete/Egor`,
-            method: 'DELETE',
-        }
-
-        const response = await instance(params)
-
+        expect(response.status).toBe(410)
         expect(response.data).toBe("User not found")
     })
+
+    
 
 
 

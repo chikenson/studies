@@ -7,7 +7,6 @@ const instance = axios.create({
   }); 
 
   const helpers = require('../helpers/helpers')
-
   const profile =  {
 
     name: helpers.randomString(5),
@@ -42,15 +41,13 @@ test('User search test', async () => {
         method: 'GET',
     }
     
-
     const response = await instance(params)
 
     expect(response.data).toStrictEqual(profile)
-
     })
 
 
-    test('User delete test', async () => {
+    test('User delete status', async () => {
 
         const params = {
 
@@ -61,16 +58,10 @@ test('User search test', async () => {
         const response = await instance(params)
 
         expect(response.status).toBe(200)
-
-
-
-
     })  
 
     
-    
-    
-    test('User delete test', async () => {
+    test('User presence', async () => {
 
         const params = {
 
@@ -79,12 +70,23 @@ test('User search test', async () => {
         }
 
         const response = await instance(params)
-        
 
         expect(response.data).not.toContainEqual(profile)
-
-
     })
+
+    test('Request from a remote user', async () => {
+
+        const params = {
+
+            url:`/delete/Egor`,
+            method: 'DELETE',
+        }
+
+        const response = await instance(params)
+
+        expect(response.data).toBe("User not found")
+    })
+
 
 
 

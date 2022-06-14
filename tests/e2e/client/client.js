@@ -1,5 +1,4 @@
 const {Request} = require('./request')
-const helpers = require('../helpers/helpers')
 
 class Client {
 
@@ -39,11 +38,6 @@ class Client {
              method: 'GET'
             })
 
-    }
-
-     profile =  {
-        name: helpers.randomString(5),
-        number: helpers.randomNumber() 
     }
 }
 

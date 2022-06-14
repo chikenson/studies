@@ -8,7 +8,3 @@ test('User delete status', async () => {
 
     expect(response.status).toBe(200)
 })  
-
-
-
-

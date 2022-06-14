@@ -6,15 +6,3 @@ test('User create test', async () => {
 
     expect(response.status).toBe(201)
 })
-
-
-
-
-
-
-
-    
-
-
-
-

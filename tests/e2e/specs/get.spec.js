@@ -1,8 +1,12 @@
 const client = require('../client/client')
-const profile = require('../profile/profileData')
+const profile = require('../data/testData')
 
-beforeAll(() => {
-     client.addProfile(profile)
+beforeAll(async () => {
+    await client.addProfile(profile)
+})
+
+afterAll(async () => {
+    await client.deleteProfile(profile.name)
 })
 
 test('User search', async () => {
@@ -12,6 +16,3 @@ test('User search', async () => {
     expect(response.data).toStrictEqual(profile)
     })
 
-afterAll(() => {
-    client.deleteProfile(profile.name)
-})

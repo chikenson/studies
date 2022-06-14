@@ -1,13 +1,11 @@
 const client = require('../client/client')
-const profile = require('../profile/profileData')
+const profile = require('../data/testData')
 
-beforeAll(() => {
-     client.addProfile(profile)
+beforeAll(async () => {
+    await client.addProfile(profile)
 })
 
-test('User delete status', async () => {
-
-    await client.addProfile(profile)
+test('Delete profile', async () => {
 
     const response = await client.deleteProfile(profile.name)
 
@@ -15,7 +13,7 @@ test('User delete status', async () => {
 })  
 
 
-test('Deleting a deleted profile', async () => {
+test('Delete not existing profile', async () => {
 
     const response = await client.deleteProfile(profile.name)
 

@@ -1,5 +1,5 @@
 const client = require('../client/client')
-const profile = require('../profile/profileData')
+const profile = require('../data/testData')
 
 test('Valid user create', async () => {
 
@@ -8,6 +8,6 @@ test('Valid user create', async () => {
     expect(response.status).toBe(201)
 })
 
-afterAll(() => {
-    client.deleteProfile(profile.name)
+afterAll(async () => {
+    await client.deleteProfile(profile.name)
 })
